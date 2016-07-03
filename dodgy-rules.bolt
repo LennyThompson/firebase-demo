@@ -1,7 +1,3 @@
-path / {
-  read() { auth != null }
-}
-
 type User {
   created: Number,
   updated: Number,
@@ -11,8 +7,8 @@ type User {
 }
 
 path /users/{$userid} is User{
-  read() { auth != null && (auth.uid === $userid || auth.admin === true) }
-  write() { auth != null && (auth.uid === $userid || auth.admin === true) }
+  read() { isAllowed($userid) }
+  write() { isAllowed($userid) }
 }
 
 type ImageCategory extends String {
@@ -35,8 +31,18 @@ type Image {
   storage: String
 }
 
-path /images/{$userid}/{imageId} is Image{
-  read() { auth != null && (auth.uid === $userid || auth.admin === true) }
-  write() { auth != null && (auth.uid === $userid || auth.admin === true) }
+path /images/{$userid} {
+  read() { isAllowed($userid) }
 }
 
+path /images/{$userid}/active/{imageId} is Image{
+  write() { isAllowed($userid) }
+}
+
+path /images/{$userid}/deleted/{imageId} is Image{
+  write() { isAllowed($userid) }
+}
+
+isAllowed(uid){
+  auth != null && auth.uid === uid
+}

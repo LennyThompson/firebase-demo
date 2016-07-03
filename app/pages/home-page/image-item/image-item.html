@@ -3,7 +3,14 @@
         {{imageItem.name}}
     </ion-card-header>
     <ion-card-content>
-        {{imageItem.description}}
-        <img [src]="imageItem.imageFile | async"/>
+        <span>Description: {{imageItem.description}}</span>
+        <span>Date: {{imageItem.created | date}}</span>
+        <button (click)="onDeleteItem()">
+            <ion-icon name="trash"></ion-icon>
+        </button>
+        <button (click)="onEditItem()">
+            <ion-icon name="md-create"></ion-icon>
+        </button>
     </ion-card-content>
+    <img [src]="imageItem.imageFile | async"/>
 </ion-card>

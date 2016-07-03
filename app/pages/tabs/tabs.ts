@@ -33,8 +33,8 @@ export class TabsPage {
         name: navParams.get('email'),
         surname: '',
         email: navParams.get('email'),
-        created: database.ServerValue.TIMESTAMP,
-        updated: database.ServerValue.TIMESTAMP
+        created: (<any>database).ServerValue.TIMESTAMP,
+        updated: (<any>database).ServerValue.TIMESTAMP
       };
       this.user.set(userCreate);
     }

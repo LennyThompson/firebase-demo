@@ -4,7 +4,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-list-header>Enter new image deatils</ion-list-header>
+        <ion-list-header>Enter new image details</ion-list-header>
         <form>
             <ion-grid>
                 <ion-row>
@@ -12,7 +12,7 @@
                         <ion-item>
                         <ion-label>Name:</ion-label>
                         <ion-input type="text" class="form-control"
-                                   [(ngModel)]="image.name"
+                                   [(ngModel)]="imageName"
                                    ngControl="name" #name="ngForm">
                         </ion-input>
                         </ion-item>
@@ -21,7 +21,7 @@
                         <ion-item>
                         <ion-label>Description:</ion-label>
                         <ion-input type="text" class="form-control"
-                                   [(ngModel)]="image.description"
+                                   [(ngModel)]="imageDescription"
                                    ngControl="description" #description="ngForm"></ion-input>
                         </ion-item>
                     </ion-col>
@@ -31,7 +31,7 @@
                         <ion-item>
                         <ion-label>Comment:</ion-label>
                         <ion-input type="text" class="form-control"
-                                   [(ngModel)]="image.comment"
+                                   [(ngModel)]="imageComment"
                                    ngControl="comment" #comment="ngForm"></ion-input>
                         </ion-item>
                     </ion-col>
@@ -39,7 +39,7 @@
                         <ion-item>
                         <ion-label>Location:</ion-label>
                         <ion-input type="text" class="form-control"
-                                   [(ngModel)]="image.location"
+                                   [(ngModel)]="imageLocation"
                                    ngControl="location" #location="ngForm"></ion-input>
                         </ion-item>
                     </ion-col>
@@ -48,7 +48,7 @@
                     <ion-col width-50>
                         <ion-item>
                         <ion-label>Category:</ion-label>
-                        <ion-select type="text" [(ngModel)]="image.category">
+                        <ion-select type="text" [(ngModel)]="imageCategory">
                             <ion-option *ngFor="let category of CATEGORY_TYPES" [value]="category.name">
                                 {{category.display}}
                             </ion-option>
@@ -76,7 +76,7 @@
     </div>
     <ion-row>
         <ion-col width-50>
-            <button (click)="saveImage()">Save</button>
+            <button (click)="saveImage()">{{saveButtonText}}</button>
         </ion-col>
         <ion-col width-50>
             <button (click)="cancel()">Cancel</button>

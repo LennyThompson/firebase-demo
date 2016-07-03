@@ -5,6 +5,7 @@ node_modules/
 www/build/
 platforms/
 plugins/
+typings/
 .idea/
 *.swp
 .DS_Store

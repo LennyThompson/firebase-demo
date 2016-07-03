@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
-var scientific_facts_page_1 = require('../scientific-facts-page/scientific-facts-page');
+var edit_image_page_1 = require('../edit-image-page/edit-image-page');
 var angularfire2_1 = require("angularfire2/angularfire2");
 var image_item_1 = require('./image-item/image-item');
 var image_1 = require('./../../services/image/image');
@@ -21,7 +21,7 @@ var HomePage = (function () {
         this.items = image_1.Image.loadFromDatabase(this.angularFire);
     }
     HomePage.prototype.addNewImage = function () {
-        this.navController.push(scientific_facts_page_1.ScientificFactsPage);
+        this.navController.push(edit_image_page_1.EditImagePage, { image: new image_1.Image(), newImage: true });
     };
     HomePage = __decorate([
         core_1.Component({

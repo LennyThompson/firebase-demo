@@ -10,16 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var angularfire2_1 = require('angularfire2');
+var index_1 = require("ionic-angular/index");
+var edit_image_page_1 = require("../../edit-image-page/edit-image-page");
 var ImageItem = (function () {
-    function ImageItem(angularFire) {
+    function ImageItem(navController, angularFire) {
+        this.navController = navController;
         this.angularFire = angularFire;
     }
+    ImageItem.prototype.onDeleteItem = function () {
+        console.log('onDeleteItem');
+        this.imageItem.deleteInDatabase(this.angularFire);
+    };
+    ImageItem.prototype.onEditItem = function () {
+        console.log('onEditItem');
+        this.navController.push(edit_image_page_1.EditImagePage, { image: this.imageItem, newImage: false });
+    };
     ImageItem = __decorate([
         core_1.Component({
             selector: 'image-item',
+            inputs: ['imageItem'],
             templateUrl: 'build/pages/home-page/image-item/image-item.html'
         }), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
+        __metadata('design:paramtypes', [index_1.NavController, angularfire2_1.AngularFire])
     ], ImageItem);
     return ImageItem;
 }());
