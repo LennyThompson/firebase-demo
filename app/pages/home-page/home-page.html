@@ -1,0 +1,10 @@
+<ion-navbar *navbar>
+  <ion-title>Home</ion-title>
+</ion-navbar>
+
+<ion-content padding class="page1">
+  <h2>Image List</h2>
+  <image-item *ngFor="let item of items | async" [imageItem]="item">
+  </image-item>
+  <button (click)="addNewImage()">Add Image...</button>
+</ion-content>

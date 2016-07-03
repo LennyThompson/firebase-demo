@@ -1,0 +1,69 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "users": {
+      "$userid": {
+        ".validate": "newData.hasChildren(['created', 'updated', 'name', 'surname', 'email'])",
+        "created": {
+          ".validate": "newData.isNumber()"
+        },
+        "updated": {
+          ".validate": "newData.isNumber()"
+        },
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "surname": {
+          ".validate": "newData.isString()"
+        },
+        "email": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".read": "auth != null && (auth.uid == $userid || auth.admin == true)",
+        ".write": "auth != null && (auth.uid == $userid || auth.admin == true)"
+      }
+    },
+    "images": {
+      "$userid": {
+        "$imageId": {
+          ".validate": "newData.hasChildren(['created', 'updated', 'name', 'category', 'status', 'description', 'comments', 'location', 'storage'])",
+          "created": {
+            ".validate": "newData.isNumber()"
+          },
+          "updated": {
+            ".validate": "newData.isNumber()"
+          },
+          "name": {
+            ".validate": "newData.isString()"
+          },
+          "category": {
+            ".validate": "newData.isString() && newData.val().matches(/^family|friends|work|other|unknown$/)"
+          },
+          "status": {
+            ".validate": "newData.isString() && newData.val().matches(/^storage|local|deleted|unknown$/)"
+          },
+          "description": {
+            ".validate": "newData.isString()"
+          },
+          "comments": {
+            ".validate": "newData.isString()"
+          },
+          "location": {
+            ".validate": "newData.isString()"
+          },
+          "storage": {
+            ".validate": "newData.isString()"
+          },
+          "$other": {
+            ".validate": "false"
+          },
+          ".read": "auth != null && (auth.uid == $userid || auth.admin == true)",
+          ".write": "auth != null && (auth.uid == $userid || auth.admin == true)"
+        }
+      }
+    }
+  }
+}

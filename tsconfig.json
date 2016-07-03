@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "filesGlob": [
+    "app/**/*.ts",
+    "typings/globals/**/*.d.ts",
+    "node_modules/angularfire2/firebase3.d.ts",
+    "!node_modules/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

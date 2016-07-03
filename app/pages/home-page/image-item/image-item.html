@@ -1,0 +1,9 @@
+<ion-card class="image-item">
+    <ion-card-header>
+        {{imageItem.name}}
+    </ion-card-header>
+    <ion-card-content>
+        {{imageItem.description}}
+        <img [src]="imageItem.imageFile | async"/>
+    </ion-card-content>
+</ion-card>

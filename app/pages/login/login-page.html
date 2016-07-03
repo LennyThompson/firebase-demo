@@ -1,0 +1,29 @@
+<ion-content class="login-page" padding>
+    <h1>Login</h1>
+    <form>
+    <ion-list>
+
+        <ion-item>
+            <ion-label fixed>Username</ion-label>
+            <ion-input type="text" class="form-control"
+                       [(ngModel)]="user.name"
+                       ngControl="name"  #name="ngForm">
+            </ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed>Password</ion-label>
+            <ion-input type="password"class="form-control"
+                       [(ngModel)]="user.password"
+                        ngControl="password" #password=""ngForm></ion-input>
+        </ion-item>
+
+    </ion-list>
+    <div padding>
+        <button block (click)="onClickLogin()">Login</button>
+    </div>
+        <div padding>
+            <button block (click)="onClickNewUser()">New User...</button>
+        </div>
+    </form>
+</ion-content>

@@ -1,0 +1,85 @@
+<ion-navbar *navbar>
+    <ion-title>New Image</ion-title>
+</ion-navbar>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>Enter new image deatils</ion-list-header>
+        <form>
+            <ion-grid>
+                <ion-row>
+                    <ion-col width-50>
+                        <ion-item>
+                        <ion-label>Name:</ion-label>
+                        <ion-input type="text" class="form-control"
+                                   [(ngModel)]="image.name"
+                                   ngControl="name" #name="ngForm">
+                        </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col width-50>
+                        <ion-item>
+                        <ion-label>Description:</ion-label>
+                        <ion-input type="text" class="form-control"
+                                   [(ngModel)]="image.description"
+                                   ngControl="description" #description="ngForm"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-50>
+                        <ion-item>
+                        <ion-label>Comment:</ion-label>
+                        <ion-input type="text" class="form-control"
+                                   [(ngModel)]="image.comment"
+                                   ngControl="comment" #comment="ngForm"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col width-50>
+                        <ion-item>
+                        <ion-label>Location:</ion-label>
+                        <ion-input type="text" class="form-control"
+                                   [(ngModel)]="image.location"
+                                   ngControl="location" #location="ngForm"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-50>
+                        <ion-item>
+                        <ion-label>Category:</ion-label>
+                        <ion-select type="text" [(ngModel)]="image.category">
+                            <ion-option *ngFor="let category of CATEGORY_TYPES" [value]="category.name">
+                                {{category.display}}
+                            </ion-option>
+                        </ion-select>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </form>
+    </ion-list>
+    <div class="row">
+        <div
+                class="drop-zone"
+                (dragstart)="onDragStart($event)"
+                (dragenter)="onDragEnter($event)"
+                (dragover)="onDragOver($event)"
+                (drop)="onDrop($event)"
+        >
+            Drag and drop images here
+        </div>
+        <div *ngIf="image.imageFile && image.imageFile.file">
+            <span>{{image.imageFile.file.name}}</span>
+            <img [src]="loadedImage | async"/>
+        </div>
+    </div>
+    <ion-row>
+        <ion-col width-50>
+            <button (click)="saveImage()">Save</button>
+        </ion-col>
+        <ion-col width-50>
+            <button (click)="cancel()">Cancel</button>
+        </ion-col>
+    </ion-row>
+</ion-content>

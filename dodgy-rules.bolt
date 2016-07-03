@@ -1,0 +1,42 @@
+path / {
+  read() { auth != null }
+}
+
+type User {
+  created: Number,
+  updated: Number,
+  name: String,
+  surname: String,
+  email: String
+}
+
+path /users/{$userid} is User{
+  read() { auth != null && (auth.uid === $userid || auth.admin === true) }
+  write() { auth != null && (auth.uid === $userid || auth.admin === true) }
+}
+
+type ImageCategory extends String {
+  validate() { this.test(/^family|friends|work|other|unknown$/) }
+}
+
+type ImageStatus extends String {
+  validate() { this.test(/^storage|local|deleted|unknown$/) }
+}
+
+type Image {
+  created: Number,
+  updated: Number,
+  name: String,
+  category: ImageCategory,
+  status: ImageStatus,
+  description: String,
+  comments: String,
+  location: String,
+  storage: String
+}
+
+path /images/{$userid}/{imageId} is Image{
+  read() { auth != null && (auth.uid === $userid || auth.admin === true) }
+  write() { auth != null && (auth.uid === $userid || auth.admin === true) }
+}
+
