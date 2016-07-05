@@ -37,8 +37,9 @@ In your new 'project', you will need to make a few settings.
 Under 'Auth' from the left hand menu - select 'SIGN IN METHOD', and select Email/Password. You can change this if you like but you will need to make changes to the app to be compatible.
 
 Then on the right hand side hit the 'WEB SETUP' button. This will generate a snippet of code you will need to bootstrap into angular to access your firebase instance. Mine looks like this:
+
 ```html
-`<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -48,7 +49,8 @@ Then on the right hand side hit the 'WEB SETUP' button. This will generate a sni
     storageBucket: "mydodgyapp.appspot.com",
   };
   firebase.initializeApp(config);
-</script>`
+</script>
+```
 
 You are only interested in the json config object, the rest is not required.
 
@@ -78,6 +80,7 @@ Now you can take the config object and add it to the app.ts (app/app.ts) in
         )
     ]
 );`
+```
 
 where your config json will replace the content of the `defaultFirebase` call.
 
