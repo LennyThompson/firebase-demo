@@ -57,7 +57,7 @@ You are only interested in the json config object, the rest is not required.
 Now you can take the config object and add it to the app.ts (app/app.ts) in
 
 ```javascript
-`ionicBootstrap(
+ionicBootstrap(
     MyApp,
     [
         FIREBASE_PROVIDERS,
@@ -79,7 +79,7 @@ Now you can take the config object and add it to the app.ts (app/app.ts) in
             }
         )
     ]
-);`
+);
 ```
 
 where your config json will replace the content of the `defaultFirebase` call.
@@ -125,7 +125,7 @@ This is the API used (there are a number to choose from, ...experiment). It is a
 
 Currently this API only works with authentication and database objects, storage is accessed though a different API provided by *_firebase3_* (which will already be installed).
 
-This is an *observable* based API, which plays very nicely with *_angular2_*s ```javascript`async` piping. This is a major change from *_angularfire(1)_* which was mainly promise based, and took me a little time to get used to, you may want to do a little research on the observable pattern (Ben Lesh has some nice things to say).
+This is an *observable* based API, which plays very nicely with *_angular2_*s ```javascriptasync``` piping. This is a major change from *_angularfire(1)_* which was mainly promise based, and took me a little time to get used to, you may want to do a little research on the observable pattern (Ben Lesh has some nice things to say).
 
 In _app/services/image/image.ts_, you will find the code that loads the list of images from firebase, see ```javascipt`loadFromDatabase`.
 
