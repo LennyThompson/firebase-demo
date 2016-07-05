@@ -125,19 +125,19 @@ This is the API used (there are a number to choose from, ...experiment). It is a
 
 Currently this API only works with authentication and database objects, storage is accessed though a different API provided by *_firebase3_* (which will already be installed).
 
-This is an *observable* based API, which plays very nicely with *_angular2_*s ```javascriptasync``` piping. This is a major change from *_angularfire(1)_* which was mainly promise based, and took me a little time to get used to, you may want to do a little research on the observable pattern (Ben Lesh has some nice things to say).
+This is an *observable* based API, which plays very nicely with *_angular2_*s `async` piping. This is a major change from *_angularfire(1)_* which was mainly promise based, and took me a little time to get used to, you may want to do a little research on the observable pattern (Ben Lesh has some nice things to say).
 
-In _app/services/image/image.ts_, you will find the code that loads the list of images from firebase, see ```javascipt`loadFromDatabase`.
+In _app/services/image/image.ts_, you will find the code that loads the list of images from firebase, see `loadFromDatabase`.
 
-This starts with a database path (the nosql way) and creates a reference to the list of stuff at that path using the injected *angularFire* object - ```javascript`angularFire.database.list(...)`
+This starts with a database path (the nosql way) and creates a reference to the list of stuff at that path using the injected *angularFire* object - `angularFire.database.list(...)`
 
-This will return an observable which is returned by the function, and is subsequently observed by the angular ```javascript`async` pipe in the enclosing template (*app/home-page/home-page.html*).
+This will return an observable which is returned by the function, and is subsequently observed by the angular `async` pipe in the enclosing template (*app/home-page/home-page.html*).
 
 Once an observer starts observing the result *_angularfire2_* will start reading data from the database. The path pointed to by the observable has a dynamic section _{imageId}_, and firebase will iterate over any underlying nodes recursing each until all data is returned. In this case this is what we want but you do need to be careful what you wish for...
 
-Internally we map the list provided by ```javascript`angularFire` into a list of image objects, taking along the ```javascript`$key` (the last part of the objects path) so we can rebuild the path at some stage in the future, to which we append any data we find in the image storage path. This is where we have to start using the non-observable API from the global storage object imported above...
+Internally we map the list provided by `angularFire` into a list of image objects, taking along the `$key` (the last part of the objects path) so we can rebuild the path at some stage in the future, to which we append any data we find in the image storage path. This is where we have to start using the non-observable API from the global storage object imported above...
 
-The storage API is old school... and returns a promise, so we wrap this in an observable and set the relevant member of our image object. This can then be ```javascript`async` piped in the template...
+The storage API is old school... and returns a promise, so we wrap this in an observable and set the relevant member of our image object. This can then be `async` piped in the template...
 
 So the list of observable images (no pun intended) is then provided to the client, which in this case is the template, and it will populate the DOM as images arrive from the database.
 
@@ -149,13 +149,13 @@ So far so good...
 
 ###Now we want to add a new image to our photo album.
 
-The ```javascript`saveToDatabase` method on the image object is used. Just to be contrary this returns a promise... This is mainly due to the storage API, but also it doesnt really matter as we dont need an observable. Adding a new image will ultimately trigger a change to the already observed list of images and update the DOM.
+The `saveToDatabase` method on the image object is used. Just to be contrary this returns a promise... This is mainly due to the storage API, but also it doesnt really matter as we dont need an observable. Adding a new image will ultimately trigger a change to the already observed list of images and update the DOM.
 
 The key points here are, we generate a new imageId that will form part of the path to the image in the database and the storage, the storage object is stored first, and then the databsase object (otherwise the list obserable will start trying to access the storage before it exists).
 
 Then we just let the edit page wait on completion before navigating back to the home page.
 
-Back in the home page the list observable will get notification of the new image and update the DOM. Note that the image will be sorted into the list based on the ```javascript``$key` (or imageId) value, which may not be the best...
+Back in the home page the list observable will get notification of the new image and update the DOM. Note that the image will be sorted into the list based on the `$key` (or imageId) value, which may not be the best...
 
 ###So now we might edit an image in the list...
 
@@ -165,15 +165,15 @@ Then when we come to perform the update we can use the update API, generating a 
 
 ####A short word about time stamping.
 
-You can set time fields in your data (in this case the updated and created fields) to a ```javascript`serverValue.TIMESTAMP` object, which will then be filled on the database side with the UTC time when the data arrived.This makes time setting between devices easier to sychronise, but has further advantages in database validation.
+You can set time fields in your data (in this case the updated and created fields) to a `serverValue.TIMESTAMP` object, which will then be filled on the database side with the UTC time when the data arrived.This makes time setting between devices easier to sychronise, but has further advantages in database validation.
 
-A field that has been set using the ```javascript`serverValue.TIMESTAMP` object can then be compared to now in the validation rules in your schema, providing the opportunity to ensure data consistency. It is however not exported by *_angularfire2_*, and has to be accessed somewhat dodgily through the database object from _firebsase3_. I guess this is a work in progress.
+A field that has been set using the `serverValue.TIMESTAMP` object can then be compared to now in the validation rules in your schema, providing the opportunity to ensure data consistency. It is however not exported by *_angularfire2_*, and has to be accessed somewhat dodgily through the database object from _firebsase3_. I guess this is a work in progress.
 
 ###And then delete...
 
 So in this schema images dont get deleted - they get moved from active to deleted. Maybe in future there might be a purge function added? Nonetheless, the act of moving the object from one place to another demonstrates all the salient features of firebase delete.
 
-The ```javascript`deleteInDatabase` method first builds the path to the image to be deleted, and removes it from the database - note as with set, this will remove everything below that node in the path. Then it simply sets the data into the deleted path, and again anything that might have been there already will be destroyed.
+The `deleteInDatabase` method first builds the path to the image to be deleted, and removes it from the database - note as with set, this will remove everything below that node in the path. Then it simply sets the data into the deleted path, and again anything that might have been there already will be destroyed.
 
 The storage object is left where it is...
 
@@ -181,7 +181,7 @@ So there you have it - a firebase photo album - basta.
 
 ###Some footnotes...
 
-1.```javascript`database.list` - this is not specific to lists in the database, it returns anything at the path its pointed at as a list of data, so it needs to be properly targetted...
+1.`database.list` - this is not specific to lists in the database, it returns anything at the path its pointed at as a list of data, so it needs to be properly targetted...
 
 2.Arrays - you can describe data at a path as an array, but... its not likely to be the array you are expecting. The array index will in general be generated by firebase, so wont follow the typical array indexing pattern (0, 1, 2, 3...), meaning that indexing the array probably wont work. The exception to this is data that can be provided to firebase as a complete array. In this case the original indexing will be preserved and the returned array will behave as expected. Given that the new angularfire2 API has no direct support for arrays I think firebase find this pattern as useless as I have found it.
 
