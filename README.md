@@ -177,6 +177,20 @@ The `deleteInDatabase` method first builds the path to the image to be deleted, 
 
 The storage object is left where it is...
 
+##Error handling...
+
+Be my guest. Obviously if we doing this for real we need to handle the case when things dont go according to plan... observables lend themselves very nicely to this.
+
+You should be prepared to see a lot of permission denied errors when you are developing against a new schema...
+
+##Unit testing...
+
+See error handling. Again ouwld have added this but *_angular_* are dropping *_jasmine_* in favour of ... and life is too short. As far as I know there are no published firebase mocks. In our ittle start up project one of my colleagues developed a mock for the angularfire1 API, but thats no use here.
+
+There are a range of possibilities, you can simply test against a live database, there are no limits to the number databases you can have in firebase, so just bootstrap your tests to a different instance and go for it.
+
+You can also use a local firebase server - I havent tried this, but it is probably the best way to go, so long as they maintain it... and I dont know if it supports storage, although that would be simpler to mock out.
+
 So there you have it - a firebase photo album - basta.
 
 ###Some footnotes...
